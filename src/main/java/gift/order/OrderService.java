@@ -4,7 +4,6 @@ import gift.member.Member;
 import gift.member.MemberRepository;
 import gift.option.Option;
 import gift.option.OptionRepository;
-import gift.product.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,7 +40,7 @@ public class OrderService {
         option.subtractQuantity(request.quantity());
         optionRepository.save(option);
 
-        int price = option.getProduct().getPrice() * request.quantity();
+        int price = option.calculateTotalPrice(request.quantity());
         member.deductPoint(price);
         memberRepository.save(member);
 
@@ -56,8 +55,7 @@ public class OrderService {
             return;
         }
         try {
-            Product product = option.getProduct();
-            kakaoMessageClient.sendToMe(member.getKakaoAccessToken(), order, product);
+            kakaoMessageClient.sendToMe(member.getKakaoAccessToken(), order, option);
         } catch (Exception ignored) {
         }
     }

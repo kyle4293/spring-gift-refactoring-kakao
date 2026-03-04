@@ -34,6 +34,13 @@ class OptionTest {
             .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @Test
+    @DisplayName("총 가격은 상품 단가 × 수량이다")
+    void calculateTotalPrice() {
+        Option option = createOption(10);
+        assertThat(option.calculateTotalPrice(3)).isEqualTo(3000);
+    }
+
     private Option createOption(int quantity) {
         Category category = new Category("카테고리", "#000", "img.png", "설명");
         Product product = new Product("상품", 1000, "img.png", category);
