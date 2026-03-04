@@ -5,12 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-/**
- * Represents a registered member.
- *
- * @author brian.kim
- * @since 1.0
- */
 @Entity
 public class Member {
     @Id
@@ -35,6 +29,10 @@ public class Member {
 
     public Member(String email) {
         this.email = email;
+    }
+
+    public boolean checkPassword(String rawPassword) {
+        return this.password != null && this.password.equals(rawPassword);
     }
 
     public void update(String email, String password) {
