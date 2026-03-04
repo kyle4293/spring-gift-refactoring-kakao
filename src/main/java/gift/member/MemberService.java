@@ -18,9 +18,7 @@ public class MemberService {
     }
 
     public TokenResponse register(MemberRequest request) {
-        if (memberRepository.existsByEmail(request.email())) {
-            throw new IllegalArgumentException("Email is already registered.");
-        }
+        validateEmailNotRegistered(request.email());
         Member member = memberRepository.save(new Member(request.email(), request.password()));
         String token = jwtProvider.createToken(member.getEmail());
         return new TokenResponse(token);
@@ -46,10 +44,14 @@ public class MemberService {
     }
 
     public Member create(String email, String password) {
+        validateEmailNotRegistered(email);
+        return memberRepository.save(new Member(email, password));
+    }
+
+    private void validateEmailNotRegistered(String email) {
         if (memberRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("Email is already registered.");
         }
-        return memberRepository.save(new Member(email, password));
     }
 
     public Member update(Long id, String email, String password) {

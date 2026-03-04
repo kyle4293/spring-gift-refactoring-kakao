@@ -42,7 +42,7 @@ public class AdminProductController {
     ) {
         List<String> errors = ProductNameValidator.validate(name, true);
         if (!errors.isEmpty()) {
-            populateNewForm(model, errors, name, price, imageUrl, categoryId);
+            populateForm(model, null, errors, name, price, imageUrl, categoryId);
             return "product/new";
         }
 
@@ -73,7 +73,7 @@ public class AdminProductController {
 
         List<String> errors = ProductNameValidator.validate(name, true);
         if (!errors.isEmpty()) {
-            populateEditForm(model, product, errors, name, price, imageUrl, categoryId);
+            populateForm(model, product, errors, name, price, imageUrl, categoryId);
             return "product/edit";
         }
 
@@ -87,23 +87,7 @@ public class AdminProductController {
         return "redirect:/admin/products";
     }
 
-    private void populateNewForm(
-        Model model,
-        List<String> errors,
-        String name,
-        int price,
-        String imageUrl,
-        Long categoryId
-    ) {
-        model.addAttribute("errors", errors);
-        model.addAttribute("name", name);
-        model.addAttribute("price", price);
-        model.addAttribute("imageUrl", imageUrl);
-        model.addAttribute("categoryId", categoryId);
-        model.addAttribute("categories", productService.findAllCategories());
-    }
-
-    private void populateEditForm(
+    private void populateForm(
         Model model,
         Product product,
         List<String> errors,
@@ -113,7 +97,9 @@ public class AdminProductController {
         Long categoryId
     ) {
         model.addAttribute("errors", errors);
-        model.addAttribute("product", product);
+        if (product != null) {
+            model.addAttribute("product", product);
+        }
         model.addAttribute("name", name);
         model.addAttribute("price", price);
         model.addAttribute("imageUrl", imageUrl);
