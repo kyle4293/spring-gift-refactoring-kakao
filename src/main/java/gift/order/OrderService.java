@@ -51,7 +51,7 @@ public class OrderService {
     }
 
     private void sendKakaoMessageIfPossible(Member member, Order order, Option option) {
-        if (member.getKakaoAccessToken() == null) {
+        if (!member.hasKakaoAccessToken()) {
             return;
         }
         try {

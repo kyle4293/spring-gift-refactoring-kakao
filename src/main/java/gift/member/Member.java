@@ -62,6 +62,10 @@ public class Member {
         this.point -= amount;
     }
 
+    public boolean hasKakaoAccessToken() {
+        return kakaoAccessToken != null;
+    }
+
     public Long getId() {
         return id;
     }
