@@ -41,7 +41,7 @@ public class KakaoMessageClient {
                 "button_title": "선물 확인하기"
             }
             """.formatted(
-            option.getProduct().getName(),
+            option.getProductName(),
             option.getName(),
             order.getQuantity(),
             totalPrice,

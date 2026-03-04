@@ -55,6 +55,10 @@ public class Option {
         return product;
     }
 
+    public String getProductName() {
+        return product.getName();
+    }
+
     public String getName() {
         return name;
     }
