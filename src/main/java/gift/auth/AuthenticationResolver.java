@@ -16,7 +16,10 @@ public class AuthenticationResolver {
 
     public Member extractMember(String authorization) {
         try {
-            final String token = authorization.replace("Bearer ", "");
+            if (authorization == null || !authorization.startsWith("Bearer ")) {
+                throw new UnauthorizedException("인증 정보가 유효하지 않습니다.");
+            }
+            final String token = authorization.substring(7);
             final String email = jwtProvider.getEmail(token);
             return memberRepository.findByEmail(email)
                 .orElseThrow(() -> new UnauthorizedException("인증 정보가 유효하지 않습니다."));

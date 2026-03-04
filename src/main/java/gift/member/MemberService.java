@@ -3,6 +3,7 @@ package gift.member;
 import gift.auth.JwtProvider;
 import gift.auth.TokenResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -54,12 +55,14 @@ public class MemberService {
         }
     }
 
+    @Transactional
     public Member update(Long id, String email, String password) {
         Member member = findById(id);
         member.update(email, password);
         return memberRepository.save(member);
     }
 
+    @Transactional
     public void chargePoint(Long id, int amount) {
         Member member = findById(id);
         member.chargePoint(amount);
