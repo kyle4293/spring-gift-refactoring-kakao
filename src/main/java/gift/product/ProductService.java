@@ -33,6 +33,7 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
+    @Transactional
     public Product create(ProductRequest request) {
         validateName(request.name());
         Category category = findCategoryById(request.categoryId());
@@ -49,6 +50,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    @Transactional
     public Product saveProduct(String name, int price, String imageUrl, Long categoryId) {
         Category category = findCategoryById(categoryId);
         return productRepository.save(new Product(name, price, imageUrl, category));

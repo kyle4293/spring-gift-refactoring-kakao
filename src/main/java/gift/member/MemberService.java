@@ -18,6 +18,7 @@ public class MemberService {
         this.jwtProvider = jwtProvider;
     }
 
+    @Transactional
     public TokenResponse register(MemberRequest request) {
         validateEmailNotRegistered(request.email());
         Member member = memberRepository.save(new Member(request.email(), request.password()));
@@ -44,6 +45,7 @@ public class MemberService {
             .orElseThrow(() -> new NoSuchElementException("Member not found. id=" + id));
     }
 
+    @Transactional
     public Member create(String email, String password) {
         validateEmailNotRegistered(email);
         return memberRepository.save(new Member(email, password));

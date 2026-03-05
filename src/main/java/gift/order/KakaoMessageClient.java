@@ -32,6 +32,13 @@ public class KakaoMessageClient {
             .toBodilessEntity();
     }
 
+    // 생성되는 JSON 예시:
+    // {
+    //   "object_type": "text",
+    //   "text": "🎁 선물이 도착했어요!\n\n상품명 (옵션명)\n수량: 3개\n금액: 3,000원\n\n💌 메시지",
+    //   "link": {},
+    //   "button_title": "선물 확인하기"
+    // }
     private String buildTemplate(Order order, Option option) {
         var totalPrice = String.format("%,d", option.calculateTotalPrice(order.getQuantity()));
         var message = order.getMessage() != null && !order.getMessage().isBlank()

@@ -36,6 +36,10 @@ public class Wish {
         return this.memberId.equals(memberId);
     }
 
+    public boolean isNotOwnedBy(Long memberId) {
+        return !this.memberId.equals(memberId);
+    }
+
     public Long getMemberId() {
         return memberId;
     }

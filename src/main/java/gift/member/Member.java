@@ -66,6 +66,10 @@ public class Member {
         return kakaoAccessToken != null;
     }
 
+    public boolean hasNoKakaoAccessToken() {
+        return kakaoAccessToken == null;
+    }
+
     public Long getId() {
         return id;
     }
